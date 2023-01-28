@@ -40,9 +40,16 @@ Copy the locations.json.example to locations.json
 cd config
 cp locations.json.example locations.json
 ```
-Edit the values in the locations.json file to your liking (if only one location then only add that)
+Edit the values in the locations.json file to your liking (if only one location then only add that and it will not show the location dropdown)
 
 ### Docker (recommended)
+If you are not using bird then edit docker-compose.yml and remove the sections where bird is refrenced
+
+Build the docker container
+```
+docker compose build
+```
+
 Start the docker container
 ```
 docker compose up -d
