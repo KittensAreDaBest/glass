@@ -34,6 +34,14 @@ bash files.sh
 ### Configure BIRD 2 (only if using BGP Route Dump)
 no configuration guide will be provided at the moment. (maybe later)
 
+### Configure locations.json
+Copy the locations.json.example to locations.json
+```
+cd config
+cp locations.json.example locations.json
+```
+Edit the values in the locations.json file to your liking (if only one location then only add that)
+
 ### Docker (recommended)
 Start the docker container
 ```

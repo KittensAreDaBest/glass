@@ -29,13 +29,13 @@ export default function Home() {
       supported: ["ipv4", "ipv6", "domain"]
     },
   ]
-  
+
   const [domain, setDomain] = useState("")
   const [ipv4, setIpv4] = useState<string[]>([])
   const [ipv6, setIpv6] = useState<string[]>([])
   const [dnsLoading, setDnsLoading] = useState(false)
   const [ipModel, setIpModel] = useState(false)
-  if ( process.env.NEXT_PUBLIC_BGP_ENABLED == "true") {
+  if (process.env.NEXT_PUBLIC_BGP_ENABLED == "true") {
     types.push({
       name: "BGP Route Dump",
       value: "bgp",
@@ -158,21 +158,23 @@ export default function Home() {
         </Dialog>
       </Transition>
       <div className='container mx-auto gap-4 px-4 md:px-0 flex flex-col'>
-        <div className='py-4 flex flex-row items-center justify-between w-full justify-center border-[#1C2026] border-b-2'>
+        <div className='py-4 flex md:flex-row flex-col items-center md:justify-between gap-4 w-full justify-center border-[#1C2026] border-b-2'>
           <img src={process.env.NEXT_PUBLIC_COMPANY_LOGO} alt={`logo of ${process.env.NEXT_PUBLIC_COMPANY}`} className='h-12' />
-          <div>
-            <select
-              className={`bg-transparent px-4 py-2 rounded-md border-zinc-700 ${loading ? 'cursor-not-allowed' : 'hover:bg-zinc-800'} transition-all duration-200 ring-0 outline-none border-2 text-white`}
-              onChange={(e) => {
-                if (e.target.value) {
-                  window.location.href = e.target.value
-                }
-              }}
-            >
-              {locations.map((location, i) => (
-                <option className='bg-zinc-800' key={i} value={location.link} selected={location.location == process.env.NEXT_PUBLIC_LOCATION}>{location.location}</option>
-              ))}
-            </select>
+          <div className='w-full md:w-auto'>
+            {locations.length > 1 && (
+              <select
+                className={`w-full md:w-auto bg-transparent px-4 py-2 rounded-md border-zinc-700 ${loading ? 'cursor-not-allowed' : 'hover:bg-zinc-800'} transition-all duration-200 ring-0 outline-none border-2 text-white`}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    window.location.href = e.target.value
+                  }
+                }}
+              >
+                {locations.map((location, i) => (
+                  <option className='bg-zinc-800' key={i} value={location.link} selected={location.location == process.env.NEXT_PUBLIC_LOCATION}>{location.location}</option>
+                ))}
+              </select>
+            )}
           </div>
         </div>
         <div className='bg-[#1C2023] border-[#212528] divide-y-2 md:divide-x-2 divide-[#212528] border-2 rounded-md grid md:grid-cols-2'>
