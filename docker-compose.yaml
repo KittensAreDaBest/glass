@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  app:
+    image: ghcr.io/kittensaredabest/glass:latest
+    restart: always
+    hostname: looking-glass
+    user: "0:0" # if not using bird can remove
+    volumes:
+      - .env:/app/.env
+      - ./public:/app/public
+      - /run/bird/bird.ctl:/var/run/bird.ctl # if not using bird can remove
+    ports:
+      - "127.0.0.1:3000:3000"
