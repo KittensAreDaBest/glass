@@ -12,7 +12,22 @@ export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null)
   const selectRef = useRef<HTMLSelectElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const types = [
+  const types = [   
+    {
+      name: "Ping",
+      value: "ping",
+      supported: ["ipv4", "ipv6", "domain"]
+    },
+    {
+      name: "MTR",
+      value: "mtr",
+      supported: ["ipv4", "ipv6", "domain"]
+    },
+    {
+      name: "Traceroute",
+      value: "traceroute",
+      supported: ["ipv4", "ipv6", "domain"]
+    },
     {
       name: "BGP Route Dump",
       value: "bgp",
