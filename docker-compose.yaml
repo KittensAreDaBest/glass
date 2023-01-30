@@ -8,9 +8,8 @@ services:
     restart: always
     hostname: looking-glass
     user: "0:0" # if not using bird can remove
+    network_mode: host # ipv6 support due to docker networking
     volumes:
       - .env:/app/.env
       - ./public:/app/public
       - /run/bird/bird.ctl:/var/run/bird.ctl # if not using bird can remove
-    ports:
-      - "127.0.0.1:3000:3000"
