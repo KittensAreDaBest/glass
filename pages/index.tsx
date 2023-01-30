@@ -14,20 +14,10 @@ export default function Home() {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const types = [
     {
-      name: "Ping",
-      value: "ping",
-      supported: ["ipv4", "ipv6", "domain"]
-    },
-    {
-      name: "MTR",
-      value: "mtr",
-      supported: ["ipv4", "ipv6", "domain"]
-    },
-    {
-      name: "Traceroute",
-      value: "traceroute",
-      supported: ["ipv4", "ipv6", "domain"]
-    },
+      name: "BGP Route Dump",
+      value: "bgp",
+      supported: ["ipv4", "ipv6"]
+    }
   ]
 
   const [domain, setDomain] = useState("")
@@ -35,13 +25,6 @@ export default function Home() {
   const [ipv6, setIpv6] = useState<string[]>([])
   const [dnsLoading, setDnsLoading] = useState(false)
   const [ipModel, setIpModel] = useState(false)
-  if (process.env.NEXT_PUBLIC_BGP_ENABLED == "true") {
-    types.push({
-      name: "BGP Route Dump",
-      value: "bgp",
-      supported: ["ipv4", "ipv6"]
-    })
-  }
   return (
     <>
       <Head>
