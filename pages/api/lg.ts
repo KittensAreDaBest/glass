@@ -36,7 +36,7 @@ export default async function handler(
   switch (command) {
     case "mtr":
       args = ["-c", "4", "--report", "--report-wide", payload]
-      cmd = "/usr/bin/mtr";
+      cmd = "/usr/sbin/mtr";
       break;
     case "traceroute":
       args = ["-w2", payload]
