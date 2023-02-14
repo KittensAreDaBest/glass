@@ -242,14 +242,15 @@ export default function Home() {
                     return
                   }
                 };
+                let ip = inputRef.current?.value.trim().toLowerCase() || ""
                 let type = ""
-                if (inputRef.current?.value.trim().toLowerCase().match(/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))?$/gm)) {
+                if (ip.match(/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))?$/gm)) {
                   type = "ipv4"
                 }
-                if (inputRef.current?.value.trim().toLowerCase().match(/^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:))(\/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8]))?$/gm)) {
+                if (ip.match(/^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:))(\/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8]))?$/gm)) {
                   type = "ipv6"
                 }
-                if (inputRef.current?.value.trim().toLowerCase().match(/^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/)) {
+                if (ip.match(/^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/)) {
                   type = "domain"
                 }
                 const method = types.find(t => t.value === selectRef.current?.value)
@@ -261,10 +262,10 @@ export default function Home() {
                   if (!method.supported.includes(type)) {
                     if (type === "domain") {
                       setDnsLoading(true)
-                      setDomain(inputRef.current?.value ? inputRef.current?.value.trim().toLowerCase() : "")
+                      setDomain(inputRef.current?.value ? ip : "")
                       setIpv4([])
                       setIpv6([])
-                      axios.get(`https://cloudflare-dns.com/dns-query?name=${inputRef.current?.value.trim().toLowerCase()}&type=A`, {
+                      axios.get(`https://cloudflare-dns.com/dns-query?name=${ip}&type=A`, {
                         headers: {
                           accept: "application/dns-json"
                         }
@@ -275,7 +276,7 @@ export default function Home() {
                           })
                         }
                       }).finally(() => {
-                        axios.get(`https://cloudflare-dns.com/dns-query?name=${inputRef.current?.value.trim().toLowerCase()}&type=AAAA`, {
+                        axios.get(`https://cloudflare-dns.com/dns-query?name=${ip}&type=AAAA`, {
                           headers: {
                             accept: "application/dns-json"
                           }
@@ -300,7 +301,7 @@ export default function Home() {
                 setValidation("")
                 setLoading(true)
                 axios.post("/api/lg", {
-                  target: inputRef.current?.value.trim().toLowerCase(),
+                  target: ip,
                   type: selectRef.current?.value
                 }).then(res => {
                   console.log(res.data)
