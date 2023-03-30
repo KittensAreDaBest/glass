@@ -26,11 +26,6 @@ cp .env.example .env
 ```
 Edit the values in the .env file to your liking
 
-Generate the test files (only if you have test files enabled. requires ~16GB storage)
-```
-bash files.sh
-```
-
 ### Configure BIRD 2 (only if using BGP Route Dump)
 no configuration guide will be provided at the moment. (maybe later)
 
@@ -48,6 +43,11 @@ If you are not using bird then edit docker-compose.yml and remove the sections w
 Build the docker container
 ```
 docker compose build
+```
+
+Generate the test files (only if you have test files enabled. requires ~16GB storage)
+```
+bash files.sh
 ```
 
 Start the docker container
@@ -72,6 +72,10 @@ yarn install
 Build the looking glass
 ```
 yarn build
+```
+Generate the test files (only if you have test files enabled. requires ~16GB storage)
+```
+bash files.sh
 ```
 
 Start the looking glass
